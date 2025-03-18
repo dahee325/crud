@@ -47,5 +47,17 @@ def index(request):
     ```python
     class Post(models.Model): # models안의 Model클래스 사용
     title = models.CharField(max_length=100) # 글자 저장 필드
-    content = 
+    content = models.TextField()
     ```
+    - 클래스는 단수(하나하나의 정의를 나타냄), 첫글자 대문자
+
+- migration : python세상에서 SQL세상(`db.sqlite3`)으로 이주
+```shell
+# 번역본 생성
+python manage.py makemigrations
+# => `posts/migrations/0001_initial.py` 생성 : SQL에 반영할 수 있는 python 문서
+```
+```shell
+# DB에 반영
+`python manage.py migrate`
+```
