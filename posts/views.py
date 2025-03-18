@@ -26,9 +26,14 @@ def create(request):
     post = Post() # Post클래스 인스턴스화해서 post에 담기
     post.title = title 
     post.content = content
-    # 데이터 저장
+    # 데이터 저장 - id를 만들어줌
     post.save()
 
     # return redirect('/index/')
     return redirect(f'/posts/{post.id}/') # 변수화된 데이터 사용
     # 제출하면 방금 만든 게시물페이지로 이동
+
+def delete(request, id):
+    post = Post.objects.get(id=id)
+    post.delete()
+    return  redirect('/index/')

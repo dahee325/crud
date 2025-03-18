@@ -91,8 +91,7 @@ python manage.py migrate
     => db.sqlite3파일 모양이 바뀜\
     => 들어가보면 `posts_post`가 우리가 만든 파일
 
-### CREATE
-- **create super user**
+### **create super user**
 ```shell
 python manage.py createsuperuser
 # Username : admin
@@ -104,7 +103,7 @@ python manage.py createsuperuser
     - `python manage.py runserver` 실행 후 위에서 만든 아이디와 비밀번호로 로그인하면 관리자 페이지가 뜸(정보를 볼 수 있음)\
     => password는 암호화되어 저장되어있음
 
-- **admin페이지(관리자 페이지)에 모델 등록** (`admin.py`)
+### **admin페이지(관리자 페이지)에 모델 등록** (`admin.py`)
 ```python
 from django.contrib import admin
 from .models import Post
@@ -175,3 +174,17 @@ urlpatterns = [
     <a href="/index/">home</a>
 </body>
 ```
+
+### create
+- 게시물 생성하기
+1. 사용자에게 빈 종이 제공
+2. 빈 종이에 내용 입력
+3. 입력된 내용 create로 전송
+4. 전송된 데이터 중 필요한 정보 뽑아내기
+5. DB에 저장
+6. 사용자에게 저장된 내용 보여주기
+
+### delete
+1. 사용자가 삭제 버튼 클릭
+2. 몇 번 게시물을 삭제할지 찾기
+3. 해당 게시물 삭제
