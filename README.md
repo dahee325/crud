@@ -9,14 +9,37 @@
 ```shell
 python -m venv venv
 ```
-- `source venv/Scripts/activate` : 가상환경 활성화
+- 가상환경 활성화
+```shell
+source venv/Scripts/activate
+```
 - `.gitignore` 설정 : python, windows, macOS, Django
 
 ## 01. Django
-- `pip install django` : 현재 폴더에 django 설치
-- `django-admin startproject crud .` : 현재 폴더(.)에 crud 프로젝트 생성
-- `django-admin startapp posts` : 앱 생성
+- 현재 폴더에 django 설치
+```shell
+pip install django
+```
+- 현재 폴더(.)에 crud 프로젝트 생성
+```shell
+django-admin startproject crud .
+```
+- 앱 생성
+```shell
+django-admin startapp posts
+```
 - `/crud/settings.py`에 `INSTALLED_APPS = [ , 'posts', ]` 추가 : 앱 등록
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'posts',
+]
+```
 
 1. `crud/urls.py`에 `urlpatterns`의 리스트에 `path('index/', views.index)`추가 => views 선언해야함
 
@@ -49,8 +72,8 @@ def index(request):
     - [CharField](https://docs.djangoproject.com/en/5.1/ref/forms/fields/#django.forms.CharField)
     ```python
     class Post(models.Model): # models안의 Model클래스 사용
-    title = models.CharField(max_length=100) # 글자 저장 필드
-    content = models.TextField()
+        title = models.CharField(max_length=100) # 글자 저장 필드
+        content = models.TextField()
     ```
     - 클래스는 단수(하나하나의 정의를 나타냄), 첫글자 대문자
 
@@ -68,6 +91,7 @@ python manage.py migrate
     => db.sqlite3파일 모양이 바뀜\
     => 들어가보면 `posts_post`가 우리가 만든 파일
 
+### CREATE
 - **create super user**
 ```shell
 python manage.py createsuperuser
@@ -80,10 +104,37 @@ python manage.py createsuperuser
     - `python manage.py runserver` 실행 후 위에서 만든 아이디와 비밀번호로 로그인하면 관리자 페이지가 뜸(정보를 볼 수 있음)\
     => password는 암호화되어 저장되어있음
 - **admin페이지(관리자 페이지)에 모델 등록** (`admin.py`)
-```shell
+```python
 from django.contrib import admin
 from .models import Post
 # admin과 같은 위치에 있기 때문에 .models
 # Register your models here.
 admin.site.register(Post)
 ```
+
+### Read
+- `Post`클래스 `views.p`y`에 불러와서 사용
+```python
+from django.shortcuts import render
+from .models import Post
+
+# Create your views here.
+def index(request):
+    #데이터 접근
+    Posts = Post.objects.all() # Post클래스의 모든 데이터를 다 가져오기
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'index.html', context)
+```
+- posts를 출력해보면 QuerySet으로 Object가 묶여있음
+```html
+<body>
+    <h1>index</h1>
+    {% for post in posts %}
+        <p>{{post}}</p>
+    {% endfor %}
+</body>
+```
+=> Object 따로 출력\
+* `models.py`에서 오타나거나 잘못입력했다면 수정하고 다시 번역본 만들고 read해야함 
