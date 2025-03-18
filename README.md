@@ -103,7 +103,7 @@ python manage.py createsuperuser
 ```
     - `python manage.py runserver` 실행 후 위에서 만든 아이디와 비밀번호로 로그인하면 관리자 페이지가 뜸(정보를 볼 수 있음)\
     => password는 암호화되어 저장되어있음
-    
+
 - **admin페이지(관리자 페이지)에 모델 등록** (`admin.py`)
 ```python
 from django.contrib import admin
@@ -150,4 +150,28 @@ urlpatterns = [
     path('posts/<int:id>/', views.detail), # id : 게시물의 고유한 번호 => django가 자동으로 설정
 ]
 ```
-    - `posts/1/`, `posts/2/`, `posts/10/` 모두 `path('posts/<int:id>/', views.detail)`가 처리
+=> `posts/1/`, `posts/2/`, `posts/10/` 모두 `path('posts/<int:id>/', views.detail)`가 처리
+- index링크에서 하나의 object링크로 이동
+```html
+<!--index.html-->
+<body>
+    <h1>index</h1>
+    {% for post in posts %}
+        <p>{{post.title}}</p>
+        <p>{{post.content}}</p>
+        <!--각 post 링크로 이동-->
+        <a href="/posts/{{post.id}}/">detail</a>
+        <hr>
+    {% endfor %}
+</body>
+```
+- object링크에서 index링크로 돌아가기
+```html
+<body>
+    <h1>detail</h1>
+    <h3>{{post.title}}</h3>
+    <p>{{post.content}}</p>
+    <!--index페이지로 돌아가기-->
+    <a href="/index/">home</a>
+</body>
+```
