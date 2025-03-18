@@ -103,6 +103,7 @@ python manage.py createsuperuser
 ```
     - `python manage.py runserver` 실행 후 위에서 만든 아이디와 비밀번호로 로그인하면 관리자 페이지가 뜸(정보를 볼 수 있음)\
     => password는 암호화되어 저장되어있음
+    
 - **admin페이지(관리자 페이지)에 모델 등록** (`admin.py`)
 ```python
 from django.contrib import admin
@@ -113,7 +114,7 @@ admin.site.register(Post)
 ```
 
 ### Read
-- `Post`클래스 `views.p`y`에 불러와서 사용
+- `Post`클래스 `views.py`에 불러와서 사용
 ```python
 from django.shortcuts import render
 from .models import Post
@@ -136,5 +137,17 @@ def index(request):
     {% endfor %}
 </body>
 ```
-=> Object 따로 출력\
-* `models.py`에서 오타나거나 잘못입력했다면 수정하고 다시 번역본 만들고 read해야함 
+=> Object 따로 출력
+- 주의 :  `models.py`에서 오타나거나 잘못입력했다면 수정하고 다시 번역본 만들고 read해야함
+
+
+### 하나의 게시물에 상세보기 페이지 만들기
+- `urls.py`파일에 경로 추가
+```python
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('index/', views.index), # 게시물 전체 목록을 보여주는 페이지
+    path('posts/<int:id>/', views.detail), # id : 게시물의 고유한 번호 => django가 자동으로 설정
+]
+```
+    - `posts/1/`, `posts/2/`, `posts/10/` 모두 `path('posts/<int:id>/', views.detail)`가 처리
