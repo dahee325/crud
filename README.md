@@ -5,7 +5,10 @@
 - delete(or destroy) : 삭제(파괴) ex.계정탈퇴
 
 ## 00. setting
-- `python -m venv venv` : 가상환경 생성
+- 가상환경 생성
+```shell
+python -m venv venv
+```
 - `source venv/Scripts/activate` : 가상환경 활성화
 - `.gitignore` 설정 : python, windows, macOS, Django
 
@@ -41,7 +44,7 @@ def index(request):
 - ORM(object relative mapping)
     - O : python 세상
     - RM : SQL 세상
-- modeling : 스키마 정의
+- **modeling** : 스키마 정의
     - `posts/models.py` : 클래스 정의
     - [CharField](https://docs.djangoproject.com/en/5.1/ref/forms/fields/#django.forms.CharField)
     ```python
@@ -51,7 +54,7 @@ def index(request):
     ```
     - 클래스는 단수(하나하나의 정의를 나타냄), 첫글자 대문자
 
-- migration : python세상에서 SQL세상(`db.sqlite3`)으로 이주
+- **migration** : python세상에서 SQL세상(`db.sqlite3`)으로 이주
 ```shell
 # 번역본 생성
 python manage.py makemigrations
@@ -59,5 +62,28 @@ python manage.py makemigrations
 ```
 ```shell
 # DB에 반영
-`python manage.py migrate`
+python manage.py migrate
+```
+    - Extensions -> `SQLite Viewer` 프로그램 설치\
+    => db.sqlite3파일 모양이 바뀜\
+    => 들어가보면 `posts_post`가 우리가 만든 파일
+
+- **create super user**
+```shell
+python manage.py createsuperuser
+# Username : admin
+# Email address : 
+# password : 1234
+# password(again) : 1234
+# y
+```
+    - `python manage.py runserver` 실행 후 위에서 만든 아이디와 비밀번호로 로그인하면 관리자 페이지가 뜸(정보를 볼 수 있음)\
+    => password는 암호화되어 저장되어있음
+- **admin페이지(관리자 페이지)에 모델 등록** (`admin.py`)
+```shell
+from django.contrib import admin
+from .models import Post
+# admin과 같은 위치에 있기 때문에 .models
+# Register your models here.
+admin.site.register(Post)
 ```
