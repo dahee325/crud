@@ -9,4 +9,6 @@
 - `pip install django` : 현재 폴더에 django 설치
 - `django-admin startproject crud .` : 현재 폴더(.)에 crud 프로젝트 생성
 - `django-admin startapp posts` : 앱 생성
-- `/crud/settings.py`에 앱 등록
+- `/crud/settings.py`에 `INSTALLED_APPS = [ , 'posts', ]` 추가 : 앱 등록
+
+1. `crud/urls.py`에 `urlpatterns`의 리스트에 `path()`추가

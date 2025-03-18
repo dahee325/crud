@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from posts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', views.index) # 게시물 전체 목록을 보여주는 페이지
 ]
