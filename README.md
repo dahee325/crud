@@ -145,6 +145,7 @@ def index(request):
 ```python
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # `index/`를 `posts/`로 바꿈 => `views.py`에 delete함수랑 `detail.html`에 home링크도 수정하기
     path('index/', views.index), # 게시물 전체 목록을 보여주는 페이지
     path('posts/<int:id>/', views.detail), # id : 게시물의 고유한 번호 => django가 자동으로 설정
 ]

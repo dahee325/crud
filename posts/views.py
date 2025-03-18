@@ -36,4 +36,26 @@ def create(request):
 def delete(request, id):
     post = Post.objects.get(id=id)
     post.delete()
-    return  redirect('/index/')
+    return  redirect('/posts/')
+
+def edit(request, id): # detail함수와 똑같지만 edit은 수정할 수 있게 html을 만들어줌
+    post = Post.objects.get(id=id)
+    context = {
+        'post': post,
+    }
+    return render(request, 'edit.html', context)
+
+def update(request, id):
+    # 기존정보 가져오기
+    post = Post.objects.get(id=id)
+
+    # 새로운 정보 가져오기
+    title = request.GET.get('title')
+    content = request.GET.get('content')
+
+    # 기존정보를 새로운정보로 바꾸기
+    post.title = title
+    post.content = content
+    post.save()
+
+    return redirect(f'/posts/{post.id}/')

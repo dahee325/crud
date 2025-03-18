@@ -21,7 +21,7 @@ from posts import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Read(ALL) - 몇 번 게시물을 읽어줘
-    path('index/', views.index), # 게시물 전체 목록을 보여주는 페이지
+    path('posts/', views.index), # 게시물 전체 목록을 보여주는 페이지
     # Read(1)
     path('posts/<int:id>/', views.detail), # id : 게시물의 고유한 번호 => django가 자동으로 설정
     # Create
@@ -29,4 +29,7 @@ urlpatterns = [
     path('posts/create/', views.create),
     # Delete - 몇 번 게시물을 지워줘
     path('posts/<int:id>/delete/', views.delete),
+    # Update - create + read, 몇 번 게시물을 수정해줘
+    path('posts/<int:id>/edit/', views.edit),
+    path('posts/<int:id>/update/', views.update),
 ]
